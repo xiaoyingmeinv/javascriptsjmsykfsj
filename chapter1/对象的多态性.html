@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>对象的多态性</title>
+</head>
+<body>
+<script>
+    var makeSound=function(animal){
+        animal.sound();
+    }
+    var duck=function(){};
+    duck.prototype.sound=function(){
+        console.log("嘎嘎嘎嘎");
+    }
+
+    var chicken=function(){};
+    chicken.prototype.sound=function(){
+        console.log("咯咯");
+    }
+    makeSound(new duck());
+    makeSound(new chicken())
+</script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>类型检查和多态</title>
+</head>
+<body>
+<script>
+   var renderMap=function(map){
+       if(map.show instanceof Function){
+           map.show();
+       }
+   }
+var baiduMap={
+    show:function(){
+        console.log("开始渲染百度地图");
+    }
+}
+   renderMap(baiduMap);
+</script>
+</body>
+</html>
