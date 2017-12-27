@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="box">
+    <div>1</div>
+    <div>2</div>
+    <div>3</div>
+    <div>4</div>
+</div>
+<script>
+   /* var func=function(){
+        var a=1;
+        return function(){
+            a++;
+            alert(a);
+        }
+    }
+    var f=func();
+    f();//2
+    f();//3
+    f();//4*/
+
+ /*  var boxDiv=document.getElementById("box");
+   var divArr=boxDiv.getElementsByTagName("div");
+   for(var i=0;i<divArr.length;i++){
+       (function(i){
+          console.log(i);
+           divArr[i].onclick=function(){
+               alert(i);
+           }
+       })(i)
+   }*/
+
+ /*var Type={};
+ for(var i=0,type;type=['String','Array','Number'][i++];){
+     (function(type){
+         Type['is'+type]=function(obj){
+               return Object.prototype.toString.call(obj)==='[object'+type+']';
+         }
+     })(type)
+ }
+
+ Type.isArray([]);
+ Type.isString('str');*/
+
+ /*var cache={};
+ var mult=function(){
+     var arg=Array.prototype.join.call(arguments,',');
+     console.log(arguments);
+     if(cache[arg]){
+         return cache[arg];
+     }
+     var a=1;
+     for(var i=0;i<arguments.length;i++){
+         a=a*arguments[i];
+     }
+     return cache[arg]=a;
+ }
+
+ console.log(mult(1,2,3));
+   console.log(cache);
+
+   //优化
+    var mult=(function(){
+        var cache={};
+        return function(){
+            var args=Array.prototype.join.call(arguments,',');
+            if(cache[args]){
+                return cache[args];
+            }
+            var a=1;
+            for(var i=0;i<arguments.length;i++){
+                a=a*arguments[i];
+            }
+            return cache[args]=a;
+        }
+    })();*/
+    //提炼代码
+    var mult=(function(){
+        var cache={};
+        var calculate=function(){
+            var a=1;
+            for(var i=0;i<arguments.length;i++){
+                a=a*arguments[i];
+            }
+            return a;
+        };
+        return function(){
+            var args=Array.prototype.join.call(arguments,',');
+            if(cache[args]){
+                return cache[args];
+            }
+            return cache[args]=calculate.apply(null,arguments);
+        }
+    })();
+console.log(mult(1,2,3));
+</script>
+</body>
+</html>

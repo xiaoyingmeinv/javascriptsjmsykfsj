@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var report=(function(){
+        var imgs=[];
+        return function(src){
+            var img=new Image();
+            imgs.push(img);
+            img.src=src;
+        }
+    })();//防止数据丢失
+
+
+</script>
+</body>
+</html>

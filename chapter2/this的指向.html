@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>this的指向</title>
+</head>
+<body>
+<div id="div1">
+    hahahahha
+</div>
+<script>
+    /*
+    * 1、作为对象的方法调用。
+    * 2、作为普通函数调用。
+    * 3、构造器调用。
+    * 4、Function.prototype.call或Function.prototype.apply调用。
+    * */
+
+   /* var obj={
+        a:1,
+        getA:function(){
+           alert(this===obj);
+            alert(this.a);
+        }
+    }
+    obj.getA();*/
+
+    document.getElementById=(function(func){
+        return function(){
+            return func.apply(document,arguments);
+        }
+    })(document.getElementById);
+
+    var getId=document.getElementById;
+    var div=getId("div1");
+    console.log(div.id);
+
+    Function.prototype.bind=function(context){
+       var self=this;
+       var context=[].shift.call(arguments);
+       var args=[].slice.call(arguments);
+       return function(){
+           return self.apply(context,[].concat.call(args,[].slice.call(arguments)));
+       }
+    };
+
+    var obj={
+        name:'seven'
+    }
+
+    var func=function(a,b,c,d){
+          alert(this.name);
+          alert([a,b,c,d])
+    }.bind(obj,1,2);
+    func(3,4);
+</script>
+</body>
+</html>
