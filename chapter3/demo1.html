@@ -8,32 +8,97 @@
 <button id="execute">点击我执行命令</button>
 <button id="undo">点击我执行命令</button>
 <script>
-    var Tv = {
-        open: function(){
-            console.log( '打开电视机' );
-        },
-        close: function(){
-            console.log( '关上电视机' );
+var Tv={
+    open:function(){
+        console.log('打开电视');
+    },
+    close:function(){
+        console.log('关闭电视');
+    }
+}
+/*var TVCommand=function(receiver){
+    this.receiver=receiver;
+};
+TVCommand.prototype.execute=function(){
+    this.receiver.open();
+}
+TVCommand.prototype.undo=function(){
+    this.receiver.close();
+}*/
+//封装
+/*var createCommand=function(receiver){
+    var execute=function(){
+         return receiver.open();
+    }
+    var undo=function(){
+        return receiver.close();
+    }
+    return {
+        execute:execute,
+        undo:undo
+    }
+};
+
+var setCommand=function(command){
+    document.getElementById('execute').onclick=function(){
+        command.execute();
+    }
+    document.getElementById('undo').onclick=function(){
+        command.undo();
+    }
+};
+
+setCommand(new createCommand(Tv));*/
+
+/*var appendDiv=function(callback){
+    for(var i=0;i<100;i++){
+        var div=document.createElement("div");
+        div.innerHTML=i;
+        document.body.appendChild(div);
+        if(typeof callback==='function'){
+            callback(div);
         }
-    };
-    var OpenTvCommand = function( receiver ){
-        this.receiver = receiver;
-    };
-    OpenTvCommand.prototype.execute = function(){
-        this.receiver.open(); // 执行命令，打开电视机
-    };
-    OpenTvCommand.prototype.undo = function(){
-        this.receiver.close(); // 撤销命令，关闭电视机
-    };
-    var setCommand = function( command ){
-        document.getElementById( 'execute' ).onclick = function(){
-            command.execute(); // 输出：打开电视机
+    }
+}
+appendDiv(function(node){
+    node.style.display='none';0000000000
+})*/
+
+
+/*var isString=function(obj){
+    return Object.prototype.toString.call(obj)==='[object String]'
+}
+var isArray=function(obj){
+    return Object.prototype.toString.call(obj)==='[object Array]'
+}
+var isNumber=function(obj){
+    return Object.prototype.toString.call(obj)==='[object Number]'
+}*/
+
+/*var isType=function(type){
+    return function(obj){
+        return Object.prototype.toString.call()==='[object '+type+']'
+    }
+}
+var isString=isType('String');
+console.log(isString());*/
+
+var Type={};
+for(var i=0,type;type=['String','Array','Number'][i++];){
+    (function(type){
+        Type['is'+type]=function(obj){
+            return Object.prototype.toString.call(obj)==='[object'+type+']';
         }
-        document.getElementById( 'undo' ).onclick = function(){
-            command.undo(); // 输出：关闭电视机
-        }
-    };
-    setCommand( new OpenTvCommand( Tv ) );
+    })(type)
+};
+Type.isArray([]);
+
+var getSingle=function(fn){
+    var ret;
+    return function(){
+        return ret || (ret=fn.apply(this,arguments));
+    }
+}
 </script>
 </body>
 </html>
